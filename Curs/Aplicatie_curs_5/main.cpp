@@ -8,22 +8,22 @@
 using namespace std;
 
 
-class Student: public Person
-{
-private:
-	std::string university;
-public:
-	Student() {};
-	Student(std::string university, int age, std::string name)
-		: university(university), Person(age, name)
-	{};
-
-	bool Info()
-	{
-		std::cout << "Info from student class" << std::endl;
-		return true;
-	}
-};
+//class Student: public Person
+//{
+//private:
+//	std::string university;
+//public:
+//	Student() {};
+//	Student(std::string university, int age, std::string name)
+//		: university(university), Person(age, name)
+//	{};
+//
+//	bool Info()
+//	{
+//		std::cout << "Info from student class" << std::endl;
+//		return true;
+//	}
+//};
 
 class Teacher : public Person, public Student
 {
