@@ -7,10 +7,12 @@ void printMessageFor(const char* name)
 
 void printMessage()
 {
-	printMessageFor("YOUR_NAME_HERE");
+	printMessageFor("Mihai");
 }
 
 int main()
 {
 	printMessage();
+
+	return 0;
 }
