@@ -8,7 +8,6 @@
 
 // 3rd party libs headers
 #include <SimpleIni.h>
-
 /**
 	Define a simple book.
 */
@@ -17,6 +16,13 @@ class Book
 public:
 	std::string name;
 	std::string authors;
+
+	Book(const std::string& bookName, const std::string& bookAuthors) 
+	: name(bookName)
+	, authors(bookAuthors)
+	{
+
+	}
 
 	void print()
 	{
@@ -43,7 +49,7 @@ public:
 	@param file_name The name of the file to read from (must include path).
 	@return Vector of books.
 */
-std::vector<Book> readBooksFromIniFile(const std::string& file_name)
+std::vector<Book> readBooksFromIniFile(const std::string file_name)
 {
 	std::vector<Book> results;
 	// TODO: BEGIN read the file -------------------------------------
@@ -59,6 +65,26 @@ std::vector<Book> readBooksFromIniFile(const std::string& file_name)
 	//		results.emplace_back(myBook);
 
 	// TODO: END read file and add to results vector ------------------
+
+	CSimpleIniA ini;
+	SI_Error rc = ini.LoadFile("books_iniFile.ini");
+	if (rc < 0) {
+		std::cout << "An error ocurred while loading the file";
+	}
+
+	int numberOfBooks = std::stoi(ini.GetValue("books", "count"));
+	int currentBookNumber = 1;
+
+	while (currentBookNumber <= numberOfBooks) {
+		
+		std::stringstream stringStream;
+		stringStream << "book." << currentBookNumber;
+		std::string bookSection(stringStream.str());
+
+		results.emplace_back(Book(ini.GetValue(bookSection.c_str(), "name"), ini.GetValue(bookSection.c_str(), "author")));
+		currentBookNumber++;
+	}
+
 	return results;
 }
 
@@ -68,7 +94,7 @@ int main()
 	// Using the SimpleINI C++ Lib: https://github.com/brofield/simpleini
 
 	// Read the data
-	std::string input_data("PATH_TO_INI_FILE.ini");
+	std::string input_data("books_iniFile.ini");
 	std::cout << "Reading the data from " << input_data << std::endl;
 	std::vector<Book> books_from_file = readBooksFromIniFile(input_data);
 
