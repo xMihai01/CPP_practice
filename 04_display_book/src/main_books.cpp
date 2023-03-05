@@ -1,5 +1,6 @@
 ﻿#include <string.h>
 #include <iostream>
+#include <vector>
 
 // Define the maximum length for the name to use.
 // Specify the length of characters in the content (Excluding the terminator).
@@ -19,7 +20,7 @@ struct Author
 
 	void print()
 	{
-		std::cout << name << std::endl;
+		std::cout << name << "\n";
 	}
 };
 
@@ -29,12 +30,15 @@ struct Book
 	char title[50];
 
 	int numAuthors;
-	Author authors[5];
+	//Author authors[5];
+	std::vector<Author> authors;
 
-	void addAuthor(Author author)
+	void addAuthor(const Author& author)
 	{
-		// TODO: add an author to the container authors array.
-		numAuthors++;
+		if (numAuthors <= 5) {
+			this->authors.push_back(author);
+			numAuthors++;
+		}
 	}
 
 	void print()
@@ -43,8 +47,8 @@ struct Book
 		std::cout << "------" << std::endl;
 		std::cout << this->title << std::endl;
 
-		// TODO: add all authors
-
+		for (size_t index = 0; index < authors.size(); index++)
+			authors[index].print();
 	}
 };
 
