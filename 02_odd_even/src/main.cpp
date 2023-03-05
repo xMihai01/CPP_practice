@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 	if (argc <= 1)
 	{
 		printf("No program arguments found.\n");
+		return 1;
 	}
 	
 	// TODO(Gusti): i don't know why this doesn't work, but someone please FIX it.
@@ -47,11 +48,15 @@ int main(int argc, char *argv[])
 	//should use atoi?
 	// or std::stoi?
 
-	std::cout << argumentAsString << std::endl; // i think this should be removed
+	for (size_t index = 1; index < argc; index++) {
+		printOddOrEven(std::stoi(argv[index]));
+	}
+
+	//std::cout << argumentAsString << std::endl; // i think this should be removed
 
 	// --------------- stop
 
-	printOddOrEven(number);
+	//printOddOrEven(number);
 
 	return 0;
 }
