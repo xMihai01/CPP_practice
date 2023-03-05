@@ -10,27 +10,37 @@ class Matrix
 private:
 	size_t column_count;
 	size_t line_count;
+	
+	std::vector<std::string> matrixData;
 
-	// TODO: store the data
-	// hints: you can use std::string, std::vectors + string, char**, vector<vector<char>>, etc
 public:
 	Matrix(size_t numColumnsX, size_t numLinesY)
-		// TODO: add functionality
+		: column_count(numColumnsX)
+		, line_count(numLinesY)
 	{
-		// TODO: add functionality
+		
+		for (size_t index = 0; index < numLinesY; index++) {
+			matrixData.push_back(std::string(numColumnsX, '-'));
+		}
+
 	}
 
 	// Set an entire line
 	void setLine(size_t line_number, const std::string& data)
 	{
+		matrixData[line_number] = data;
 	}
 
-	//OPTIONAL
-	//char getCellXY(size_t x, size_t y, char cell_content)
-	//{
-	//	// TODO: add functionality
-	//	return 0;
-	//}
+
+	char getCellXY(size_t x, size_t y)
+	{
+		
+		if (x < column_count && y < line_count)
+			return matrixData[y][x];
+
+
+		return ' ';
+	}
 
 	/**
 		Sets the cell content for a specific cell identified by its coordinates (X and Y)
@@ -54,13 +64,18 @@ public:
 	*/
 	void setCellXY(size_t x, size_t y, char cell_content)
 	{
-		// TODO: add functionality
+		if (x < column_count && y < line_count)
+			matrixData[y][x] = cell_content;
 	}
 
 	void print()
 	{
-		// print all lines and columns
-		// TODO: add functionality
+		
+		for (size_t index = 0; index < line_count; index++) {
+			std::cout << matrixData[index] << "\n";
+		}
+
+		std::cout << "\n\n";
 	}
 };
 
@@ -127,5 +142,7 @@ X-----X----X-----XX-
 
 	// This should silently fail (not trigger an error): cell Y=11 invalid due to limited height.
 	matrix.setCellXY(3, 11, 'O');
+
+	std::cout << matrix.getCellXY(3, 7);
 	return 0;
 }
